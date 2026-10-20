@@ -29,7 +29,12 @@ public class Sample3AuthConfiguration {
             .logoutSuccessUrl("/"))
         .authorizeHttpRequests(authz -> authz
             .requestMatchers("/sample4/**").authenticated()
-            .anyRequest().permitAll());
+            .anyRequest().permitAll())
+        .csrf(csrf -> csrf
+            .ignoringRequestMatchers("/h2-console/*"))
+        .headers(headers -> headers
+            .frameOptions(frameOptions -> frameOptions
+                .sameOrigin()));
     return http.build();
   }
 
